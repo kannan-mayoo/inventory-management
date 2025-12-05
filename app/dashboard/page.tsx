@@ -3,6 +3,7 @@ import { getCurrentUser } from "@lib/auth";
 import prisma from "@lib/prisma";
 import { TrendingUp } from "lucide-react";
 import ProductsChart from "@/components/products-chart";
+import { Decimal } from "@prisma/client/runtime/library";
 
 export default async function DashboardPage() {
 
@@ -24,8 +25,23 @@ export default async function DashboardPage() {
     }),
   ]);
 
+
+  type ProductSummary = {
+  price: Decimal;
+  quantity: number | null;
+  createdAt: Date;
+};
+
  
-  const totalValue = allProducts.reduce((sum: number, product) => sum + Number(product.price) * Number(product.quantity), 0);
+  const totalValue = allProducts.reduce((sum: number, product:ProductSummary) => sum + Number(product.price) * Number(product.quantity), 0);
+//   const totalValue = allProducts.reduce(
+//   (
+//     sum: number,
+//     product: { price: number | string | null; quantity: number | null }
+//   ) => sum + Number(product.price) * Number(product.quantity),
+//   0
+// );
+
 
 
   const inStockCount = allProducts.filter((p: { quantity: number | null }) => Number(p.quantity) > 5).length;
