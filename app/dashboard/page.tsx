@@ -77,7 +77,7 @@ export default async function DashboardPage() {
       "0"
     )}/${String(weekStart.getDate() + 1).padStart(2, "0")}`;
 
-    const weekProducts = allProducts.filter((product) => {
+    const weekProducts = allProducts.filter((product:ProductSummary) => {
       const productDate = new Date(product.createdAt);
       return productDate >= weekStart && productDate <= weekEnd;
     });
