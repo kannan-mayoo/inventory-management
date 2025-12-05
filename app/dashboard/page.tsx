@@ -46,10 +46,10 @@ export default async function DashboardPage() {
 
   const inStockCount = allProducts.filter((p: { quantity: number | null }) => Number(p.quantity) > 5).length;
   const lowStockCount = allProducts.filter(
-    (p) => Number(p.quantity) <= 5 && Number(p.quantity) >= 1
+    (p:ProductSummary) => Number(p.quantity) <= 5 && Number(p.quantity) >= 1
   ).length;
   const outOfStockCount = allProducts.filter(
-    (p) => Number(p.quantity) === 0
+    (p:ProductSummary) => Number(p.quantity) === 0
   ).length;
 
   const inStockPercentage =
